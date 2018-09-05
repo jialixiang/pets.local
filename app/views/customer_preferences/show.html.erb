@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Age:</strong>
+  <%= @customer_preference.age %>
+</p>
+
+<p>
+  <strong>Species:</strong>
+  <%= @customer_preference.species %>
+</p>
+
+<p>
+  <strong>Breed:</strong>
+  <%= @customer_preference.breed %>
+</p>
+
+<%= link_to 'Edit', edit_customer_preference_path(@customer_preference) %> |
+<%= link_to 'Back', customer_preferences_path %>

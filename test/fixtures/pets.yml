@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  name: MyString
+  available_from: 2018-09-05 23:12:42
+  age: 1
+  species: MyString
+  breed: MyString
+
+two:
+  id: 1
+  name: MyString
+  available_from: 2018-09-05 23:12:42
+  age: 1
+  species: MyString
+  breed: MyString

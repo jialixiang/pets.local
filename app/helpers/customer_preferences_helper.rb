@@ -1,0 +1,2 @@
+module CustomerPreferencesHelper
+end
