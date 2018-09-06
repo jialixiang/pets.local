@@ -12,13 +12,18 @@ pet_list = [
   [3, "coco", "2018-08-20 08:00:00", nil, "cat", nil],
   [4, "daisy", nil, 5, "rabbit", nil],
   [5, "lola", "2018-09-01 15:00:00", 1, "other", nil],
+  [6, "bella", nil, 0, "cat", "poodle"]
 ]
 
 customer_list = [
   [1, ["less than 2 years", ["dog"], []]],
   [2, ["2 to 4 years", ["cat"], []]],
   [3, ["more than 4 years", ["dog", "rabbit"], ["labrador", "poodle"]]],
-  [4, [nil, [], []]]
+  [4, [nil, [], []]],
+  [5, ["other", ["rabbit"], []]],
+  [6, [nil, ["rabbit", "fake"], []]],
+  [7, ["2 to 4 years", ["dog"], ["fake"]]],
+  [8, [nil, ["rabbit"], ["spaniel"]]]
 ]
 
 # Create testing pets
@@ -33,7 +38,7 @@ pet_list.each do |id, name, available_from, age, species, breed|
       species: species,
       breed: breed
     )
-  rescue ArgumentError => e
+  rescue ArgumentError, ActiveRecord::RecordInvalid => e
     puts "Creating Pet Error: #{e}"
   end
 end
@@ -50,7 +55,7 @@ customer_list.each do |id, preference|
       species: preference[1],
       breed: preference[2]
     )
-  rescue ArgumentError => e
+  rescue ArgumentError, ActiveRecord::RecordInvalid => e
     puts "Creating Customer Error: #{e}"
   end
 end
