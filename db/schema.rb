@@ -26,10 +26,8 @@ ActiveRecord::Schema.define(version: 2018_09_05_151305) do
   end
 
   create_table "customers", force: :cascade do |t|
-    t.bigint "preference_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["preference_id"], name: "index_customers_on_preference_id"
   end
 
   create_table "pets", force: :cascade do |t|
@@ -42,5 +40,4 @@ ActiveRecord::Schema.define(version: 2018_09_05_151305) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "customers", "customer_preferences", column: "preference_id"
 end

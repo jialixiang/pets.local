@@ -25,7 +25,7 @@ customer_list = [
 Pet.delete_all
 pet_list.each do |id, name, available_from, age, species, breed|
   begin
-    Pet.create(
+    Pet.create!(
       id: id,
       name: name,
       available_from: available_from,
@@ -42,15 +42,15 @@ end
 Customer.delete_all
 customer_list.each do |id, preference|
   begin
-    customer = Customer.create(
-      id: id,
+    customer = Customer.create!(
+      id: id
     )
-    customer.create_preference(
+    customer.create_preference!(
       age: preference[0],
       species: preference[1],
       breed: preference[2]
     )
   rescue ArgumentError => e
-    puts "Creating Pet Error: #{e}"
+    puts "Creating Customer Error: #{e}"
   end
 end

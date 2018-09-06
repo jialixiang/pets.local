@@ -4,7 +4,7 @@ class CreateCustomerPreferences < ActiveRecord::Migration[5.2]
       t.string :age
       t.string :species, array: true, default: []
       t.string :breed, array: true, default: []
-      t.references :customer
+      t.belongs_to :customer, index: true
 
       t.timestamps
     end

@@ -1,3 +1,3 @@
 class Customer < ApplicationRecord
-  has_one :preference, class_name: "CustomerPreference"
+  has_one :preference, class_name: "CustomerPreference", dependent: :destroy
 end
