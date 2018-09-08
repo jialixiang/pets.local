@@ -16,6 +16,7 @@ document.addEventListener('turbolinks:load', () => {
     var id = element.dataset.id
     var customer = JSON.parse(element.dataset.customer)
     var preference_attributes = JSON.parse(element.dataset.preferenceAttributes)
+    var pet_id_to_adopt = null
     if (!preference_attributes) {
       preference_attributes = {
         id: null,
@@ -29,7 +30,7 @@ document.addEventListener('turbolinks:load', () => {
     var app = new Vue({
       el: element,
       data: function() {
-        return { id: id, customer: customer }
+        return { id: id, customer: customer, pet_id_to_adopt: pet_id_to_adopt }
       },
       methods: {
         save: function() {
@@ -44,6 +45,17 @@ document.addEventListener('turbolinks:load', () => {
           // Edit an existing customer
           } else {
             this.$http.put(`/customers/${this.id}`, { customer: this.customer }).then(response => {
+              Turbolinks.visit(`/customers/${response.body.id}`)
+            }, response => {
+              console.log(response.body)
+            })
+          }
+        },
+
+        adopt: function() {
+          if (this.pet_id_to_adopt) {
+            // Create a new adoption
+            this.$http.post(`/customers/${this.id}/adopt?pet_id=${this.pet_id_to_adopt}`).then(response => {
               Turbolinks.visit(`/customers/${response.body.id}`)
             }, response => {
               console.log(response.body)

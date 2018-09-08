@@ -65,19 +65,23 @@ class PetsController < ApplicationController
   # GET /pets/1/matches.json
   def matches
     @pet = Pet.find(params[:id])
-    customer_preferences = CustomerPreference.where(
-      "species = '{}' OR '#{@pet.species}' = ANY (species)"
-    )
-
     @matched_customers = []
-    customer_preferences.each do |preference|
-      next if (@pet.species == 'dog' && preference.breed.any? && preference.breed.exclude?(@pet.breed))
-      next if (preference.age && !@pet.age)
-      next if (preference.age == 'less than 2 years' && @pet.age >= 2)
-      next if (preference.age == '2 to 4 years' && (@pet.age < 2 || @pet.age > 4))
-      next if (preference.age == 'more than 4 years' && @pet.age <= 4)
-      @matched_customers.push(preference.customer_id)
+
+    if !@pet.adoption
+      customer_preferences = CustomerPreference.where(
+        "species = '{}' OR '#{@pet.species}' = ANY (species)"
+      )
+
+      customer_preferences.each do |preference|
+        next if (@pet.species == 'dog' && preference.breed.any? && preference.breed.exclude?(@pet.breed))
+        next if (preference.age && !@pet.age)
+        next if (preference.age == 'less than 2 years' && @pet.age >= 2)
+        next if (preference.age == '2 to 4 years' && (@pet.age < 2 || @pet.age > 4))
+        next if (preference.age == 'more than 4 years' && @pet.age <= 4)
+        @matched_customers.push(preference.customer_id)
+      end
     end
+
     respond_to do |format|
       format.html { render :matches, notice: 'Found matched customers.' }
       format.json { render json: @matched_customers, status: :ok, location: @pet }

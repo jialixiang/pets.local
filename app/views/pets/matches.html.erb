@@ -1,8 +1,12 @@
 <div class="container-fluid">
   <h3>Pet <%= @pet.id %>: <%= @pet.name %></h3>
-
-  <h4>Matching Customers:</h4>
-  <% @matched_customers.each do |match| %>
-    <li><%= match %></li>
+  <% if @pet.adoption %>
+    <h4>Status: Adopted</h4>
+  <% else %>
+    <h4>Status: Available</h4>
+    <h5>Matching Customers:</h5>
+    <% @matched_customers.each do |match| %>
+      <li><%= match %></li>
+    <% end %>
   <% end %>
 </div>

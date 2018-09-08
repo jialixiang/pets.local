@@ -90,6 +90,26 @@ class CustomersController < ApplicationController
     end
   end
 
+  # POST /customers/1/adopt?pet_id=1
+  # POST /customers/1/adopt.json?pet_id=1
+  def adopt
+    @customer = Customer.find(params[:id])
+    @adoption = Adoption.create(
+      customer_id: @customer.id,
+      pet_id: params[:pet_id]
+    )
+
+    respond_to do |format|
+      if @adoption.save
+        format.html { redirect_to @customer, notice: 'Adoption was successfully created.' }
+        format.json { render :show, status: :created, location: @customer }
+      else
+        format.html { render :new }
+        format.json { render json: @adoption.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_customer

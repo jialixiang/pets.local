@@ -7,13 +7,13 @@
   data: {
     id: customer.id,
     customer: customer.to_json(except: [:created_at, :updated_at]),
-    preference_attributes: customer.preference.to_json(except: [:customer_id, :created_at, :updated_at]),
+    preference_attributes: customer.preference.to_json(except: [:customer_id, :created_at, :updated_at])
   } do %>
 
   <div class="container-fluid">
 
     <h3>ID</h3>
-    <input class="form-control" id="customer_id" v-model="customer.id" placeholder="Enter Customer ID (Integer)">
+    <input type="number" class="form-control" id="customer_id" v-model="customer.id" placeholder="Enter Customer ID (Integer)">
 
     <h3>Preference</h3>
 
@@ -41,7 +41,7 @@
       <label>Breed</label>
       <div id="breed">
         <% @allowed_breed.each do |breed| %>
-          <input class="form-check-input" type="checkbox" id=<%= breed%> value=<%= breed %> v-model="customer.preference_attributes.breed">
+          <input class="form-check-input" type="checkbox" id=<%= breed %> value=<%= breed %> v-model="customer.preference_attributes.breed">
           <label class="form-check-label" for=<%= breed %>><%= breed %></label>
         <% end %>
       </div>
@@ -50,5 +50,15 @@
 
     <button v-on:click="save" class="btn-primary">Save</button>
 
+    <h3>Adopted Pets</h3>
+    <% customer.adoptions.each do |adoption| %>
+      <li><%= adoption.pet.id %></li>
+    <% end %>
+
+    <br />
+    <label>Add New Adoption</label>
+    <input type="number" class="form-control" id="pet_id" v-model="pet_id_to_adopt" placeholder="Enter Pet ID (Integer)">
+    <br />
+    <button v-on:click="adopt" class="btn-primary">Adopt</button>
   </div>
 <% end %>
