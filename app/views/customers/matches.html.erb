@@ -1,0 +1,8 @@
+<div class="container-fluid">
+  <h3>Customer: <%= @customer.id %></h3>
+
+  <h4>Matching Pets:</h4>
+  <% @matched_pets.each do |match| %>
+    <li><%= match %></li>
+  <% end %>
+</div>

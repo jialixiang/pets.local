@@ -66,21 +66,21 @@ class PetsController < ApplicationController
   def matches
     @pet = Pet.find(params[:id])
     customer_preferences = CustomerPreference.where(
-      "'#{@pet.species}' = ANY (species)"
+      "species = '{}' OR '#{@pet.species}' = ANY (species)"
     )
 
-    matched_customers = []
+    @matched_customers = []
     customer_preferences.each do |preference|
-      next if (preference.breed.any? && preference.breed.exclude?(@pet.breed))
+      next if (@pet.species == 'dog' && preference.breed.any? && preference.breed.exclude?(@pet.breed))
       next if (preference.age && !@pet.age)
       next if (preference.age == 'less than 2 years' && @pet.age >= 2)
       next if (preference.age == '2 to 4 years' && (@pet.age < 2 || @pet.age > 4))
       next if (preference.age == 'more than 4 years' && @pet.age <= 4)
-      matched_customers.push(preference.customer_id)
+      @matched_customers.push(preference.customer_id)
     end
     respond_to do |format|
-      format.html { render :matches, notice: 'Pet was successfully destroyed.' }
-      format.json { render json: matched_customers, status: :ok, location: @pet }
+      format.html { render :matches, notice: 'Found matched customers.' }
+      format.json { render json: @matched_customers, status: :ok, location: @pet }
     end
   end
 

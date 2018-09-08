@@ -67,6 +67,29 @@ class CustomersController < ApplicationController
     end
   end
 
+  # GET /customers/1/matches
+  # GET /customers/1/matches.json
+  def matches
+    @customer = Customer.find(params[:id])
+    @preference = @customer.preference
+
+    @matched_pets = []
+    Pet.all.each do |pet|
+      next if (pet.adoption)
+      next if (@preference.species.any? && @preference.species.exclude?(pet.species))
+      next if (@preference.breed.any? && pet.species == 'dog' && @preference.breed.exclude?(pet.breed))
+      next if (@preference.age && !pet.age)
+      next if (@preference.age == 'less than 2 years' && pet.age >= 2)
+      next if (@preference.age == '2 to 4 years' && (pet.age < 2 || pet.age > 4))
+      next if (@preference.age == 'more than 4 years' && pet.age <= 4)
+      @matched_pets.push(pet.id)
+    end
+    respond_to do |format|
+      format.html { render :matches, notice: 'Found matched pets.' }
+      format.json { render json: @matched_pets, status: :ok, location: @customer }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_customer
