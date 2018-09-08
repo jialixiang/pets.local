@@ -45,6 +45,7 @@ end
 
 # Create testing customers
 Customer.delete_all
+CustomerPreference.delete_all
 customer_list.each do |id, preference|
   begin
     customer = Customer.create!(

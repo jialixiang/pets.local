@@ -1,47 +1,62 @@
-<%= form_with(model: pet, local: true) do |form| %>
-  <% if pet.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(pet.errors.count, "error") %> prohibited this pet from being saved:</h2>
+<head>
+  <%= javascript_pack_tag 'pet_vue' %>
+</head>
 
-      <ul>
-      <% pet.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<%= content_tag :div,
+  id: "pet-form",
+  data: {
+    id: pet.id,
+    pet: pet.to_json(except: [:created_at, :updated_at])
+  } do %>
+
+  <div class="container-fluid">
+
+    <div class="form-group">
+      <label>ID</label>
+      <input class="form-control" id="pet_id" v-model="pet.id" placeholder="Enter Pet ID (Integer)">
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :id %>
-    <%= form.number_field :id %>
-  </div>
+    <div class="form-group">
+      <label>Name</label>
+      <input class="form-control" id="name" v-model="pet.name" placeholder="Enter Pet Name">
+    </div>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
+    <div class="form-group">
+      <label>Available From</label>
+      <input class="form-control" id="available_from" v-model="pet.available_from" placeholder="Enter Pet Name">
+    </div>
 
-  <div class="field">
-    <%= form.label :available_from %>
-    <%= form.datetime_select :available_from %>
-  </div>
+    <div class="form-group">
+      <label>Age</label>
+      <input class="form-control" id="age" v-model="pet.age" placeholder="Enter Pet Age">
+    </div>
 
-  <div class="field">
-    <%= form.label :age %>
-    <%= form.number_field :age %>
-  </div>
+    <div class="form-group">
+      <label>Species</label>
+      <select class="form-control" id="species" v-model="pet.species">
+        <%= options_for_select([
+          ['Unknown', nil],
+          ['cat', 'cat'],
+          ['dog', 'dog'],
+          ['rabbit', 'rabbit']
+        ]) %>
+      </select>
+    </div>
 
-  <div class="field">
-    <%= form.label :species %>
-    <%= form.text_field :species %>
-  </div>
+    <div class="form-group">
+      <label>Breed</label>
+      <select class="form-control" id="breed" v-model="pet.breed">
+        <%= options_for_select([
+          ['Unknown', nil],
+          ['labrador', 'labrador'],
+          ['poodle', 'poodle'],
+          ['spaniel', 'spaniel'],
+          ['terrier', 'terrier']
+        ]) %>
+      </select>
+      <small id="breedHelp" class="form-text text-muted">Select breed only for a dog.</small>
+    </div>
 
-  <div class="field">
-    <%= form.label :breed %>
-    <%= form.text_field :breed %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+    <button v-on:click="save" class="btn-primary">Save</button>
   </div>
 <% end %>

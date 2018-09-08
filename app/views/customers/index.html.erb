@@ -23,9 +23,13 @@
     <% @customers.each do |customer| %>
       <tr>
         <td><%= customer.id %></td>
-        <td><%= customer.preference.age %></td>
-        <td><%= customer.preference.species %></td>
-        <td><%= customer.preference.breed %></td>
+        <% if customer.preference != nil %>
+          <td><%= customer.preference.age %></td>
+          <td><%= customer.preference.species %></td>
+          <td><%= customer.preference.breed %></td>
+        <% else %>
+          <td colspan="3"></td>
+        <% end %>
         <td>
           <%= button_to 'Edit', edit_customer_path(customer), :method => "get", class: 'btn-primary' %>
         </td>

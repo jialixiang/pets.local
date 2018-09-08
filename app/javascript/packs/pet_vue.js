@@ -10,48 +10,41 @@ Vue.use(TurbolinksAdapter)
 document.addEventListener('turbolinks:load', () => {
   Vue.http.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 
-  var element = document.getElementById("customer-form")
+  var element = document.getElementById("pet-form")
 
   if (element != null) {
     var id = element.dataset.id
-    var customer = JSON.parse(element.dataset.customer)
-    var preference_attributes = JSON.parse(element.dataset.preferenceAttributes)
-    if (!preference_attributes) {
-      preference_attributes = {
-        id: null,
-        age: null,
-        species: [],
-        breed: []
-      }
-    }
-    customer.preference_attributes = preference_attributes
+    var pet = JSON.parse(element.dataset.pet)
 
     var app = new Vue({
       el: element,
       data: function() {
-        return { id: id, customer: customer }
+        return { id: id, pet: pet }
       },
       methods: {
         save: function() {
-
-          // Create a new customer
+          // Create a new pet
           if (this.id == null) {
-            this.$http.post('/customers', { customer: this.customer }).then(response => {
+            this.$http.post('/pets', { pet: this.pet }).then(response => {
               console.log(response.body)
-              Turbolinks.visit(`/customers/${response.body.id}`)
+              Turbolinks.visit(`/pets/${response.body.id}`)
             }, response => {
               console.log(response.body)
             })
 
-          // Edit an existing customer
+          // Edit an existing pet
           } else {
-            this.$http.put(`/customers/${this.id}`, { customer: this.customer }).then(response => {
+            this.$http.put(`/pets/${this.id}`, { pet: this.pet }).then(response => {
               console.log(response.body)
-              Turbolinks.visit(`/customers/${response.body.id}`)
+              Turbolinks.visit(`/pets/${response.body.id}`)
             }, response => {
               console.log(response.body)
             })
           }
+        },
+
+        existingPet: function() {
+          return this.pet.id != null
         }
       }
     })

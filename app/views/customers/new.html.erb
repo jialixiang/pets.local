@@ -1,5 +1,5 @@
-<h1>New Customer</h1>
-
+<h3>New Customer</h3>
 <%= render 'form', customer: @customer %>
 
-<%= link_to 'Back', customers_path %>
+<br />
+<%= button_to 'Back To Customer List', customers_path, :method => "get", class: 'btn-info' %>

@@ -1,6 +1,5 @@
-<h1>Editing Pet</h1>
-
+<h3>Editing Pet</h3>
 <%= render 'form', pet: @pet %>
 
-<%= link_to 'Show', @pet %> |
-<%= link_to 'Back', pets_path %>
+<br />
+<%= button_to 'Back To Pet List', pets_path, :method => "get", class: 'btn-info' %>

@@ -15,10 +15,16 @@ class CustomersController < ApplicationController
   # GET /customers/new
   def new
     @customer = Customer.new
+    @allowed_age_range = ['less than 2 years', '2 to 4 years', 'more than 4 years']
+    @allowed_species = ['cat', 'dog', 'rabbit']
+    @allowed_breed = ['labrador', 'poodle', 'spaniel', 'terrier']
   end
 
   # GET /customers/1/edit
   def edit
+    @allowed_age_range = ['less than 2 years', '2 to 4 years', 'more than 4 years']
+    @allowed_species = ['cat', 'dog', 'rabbit']
+    @allowed_breed = ['labrador', 'poodle', 'spaniel', 'terrier']
   end
 
   # POST /customers
