@@ -1,27 +1,56 @@
-<%= form_with(model: customer, local: true) do |form| %>
-  <% if customer.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+<%= content_tag :div,
+  id: "customer-form",
+  data: {
+    id: customer.id,
+    customer: customer.to_json(except: [:id, :created_at, :updated_at]),
+    preference_attributes: customer.preference.to_json(except: [:customer_id, :created_at, :updated_at]),
+  } do %>
 
-      <ul>
-      <% customer.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <form>
+    <div class="form-group">
+      <div class="container">
+        <h3>ID</h3>
+        <input class="form-control" id="customer_id" v-model="customer.id" placeholder="Enter Customer ID (Integer)">
+
+        <h3>Preference</h3>
+        <div class="form-group">
+          <label>Age Range</label>
+          <select class="form-control" id="age" v-model="customer.preference_attributes.age">
+            <option>any</option>
+            <option>less than 2 years</option>
+            <option>2 to 4 years</option>
+            <option>more than 4 years</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Species</label>
+          <div id="species">
+            <input class="form-check-input" type="checkbox" id="cat" value="cat" v-model="customer.preference_attributes.species">
+            <label class="form-check-label" for="cat">cat</label>
+            <input class="form-check-input" type="checkbox" id="dog" value="dog" v-model="customer.preference_attributes.species">
+            <label class="form-check-label" for="dog">dog</label>
+            <input class="form-check-input" type="checkbox" id="rabbit" value="rabbit" v-model="customer.preference_attributes.species">
+            <label class="form-check-label" for="rabbit">rabbit</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Breed</label>
+          <div id="breed">
+            <input class="form-check-input" type="checkbox" id="labrador" value="labrador" v-model="customer.preference_attributes.breed">
+            <label class="form-check-label" for="labrador">labrador</label>
+            <input class="form-check-input" type="checkbox" id="poodle" value="poodle" v-model="customer.preference_attributes.breed">
+            <label class="form-check-label" for="poodle">poodle</label>
+            <input class="form-check-input" type="checkbox" id="spaniel" value="spaniel" v-model="customer.preference_attributes.breed">
+            <label class="form-check-label" for="spaniel">spaniel</label>
+            <input class="form-check-input" type="checkbox" id="terrier" value="terrier" v-model="customer.preference_attributes.breed">
+            <label class="form-check-label" for="terrier">terrier</label>
+          </div>
+          <br />
+          <small id="breedHelp" class="form-text text-muted">Select a list of breeds only if you accept dogs.</small>
+        </div>
+
+        <button v-on:click="save" class="btn-primary">Save</button>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :id %>
-    <%= form.number_field :id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :preference_id %>
-    <%= form.text_field :preference_id %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  </form>
 <% end %>
