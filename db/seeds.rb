@@ -26,6 +26,12 @@ customer_list = [
   [8, [nil, ["rabbit"], ["spaniel"]]]
 ]
 
+adoption_list = [
+  # customer_id, pet_id
+  [1, 2],
+  [2, 2],
+  [3, 4]
+]
 # Create testing pets
 Pet.delete_all
 pet_list.each do |id, name, available_from, age, species, breed|
@@ -58,5 +64,17 @@ customer_list.each do |id, preference|
     )
   rescue ArgumentError, ActiveRecord::RecordInvalid => e
     puts "Creating Customer Error: #{e}"
+  end
+end
+
+Adoption.delete_all
+adoption_list.each do |customer_id, pet_id|
+  begin
+    Adoption.create!(
+      customer_id: customer_id,
+      pet_id: pet_id
+    )
+  rescue ArgumentError, ActiveRecord::RecordInvalid => e
+    puts "Creating Adoption Error: #{e}"
   end
 end

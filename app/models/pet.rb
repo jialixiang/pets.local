@@ -6,6 +6,9 @@ class Pet < ApplicationRecord
   enum species: { cat: "cat", dog: "dog", rabbit: "rabbit" }
   enum breed: { labrador: "labrador", poodle: "poodle", spaniel: "spaniel", terrier: "terrier" }
 
+  has_one :adoption
+  has_one :customer, through: :adoption
+
   validate :validate_breed_association
   def validate_breed_association
     if species != "dog" && breed

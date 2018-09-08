@@ -5,6 +5,7 @@ class CustomerPreference < ApplicationRecord
     "more than 4 years": ">4"
   }
   belongs_to :customer
+  validates :customer, presence: true
 
   validate :validate_species_types
   validate :validate_breed_types
