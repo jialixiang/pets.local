@@ -64,4 +64,19 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to customers_url
   end
+
+  test "should get matching pets" do
+    get "/customers/#{@customer.id}/matches.json"
+    assert_equal JSON.parse(response.body), []
+  end
+
+  test "should be able to adopt a pet" do
+    post "/customers/#{@customer.id}/adopt?pet_id=1"
+    assert_redirected_to customer_url(@customer)
+  end
+
+  test "should not be able to adopt a pet which is adopted already" do
+    post "/customers/#{@customer.id}/adopt.json?pet_id=3"
+    assert_equal JSON.parse(response.body), {"pet"=>["has already been taken"]}
+  end
 end

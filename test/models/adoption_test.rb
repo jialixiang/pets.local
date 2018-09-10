@@ -12,25 +12,15 @@ class AdoptionTest < ActiveSupport::TestCase
   test "should save adoption even if a customer has adopted another already" do
     adoption = Adoption.new
     adoption.customer_id = 1
-    adoption.pet_id = 1
-    adoption.save
-
-    adoption2 = Adoption.new
-    adoption2.customer_id = 1
-    adoption2.pet_id = 2
-    assert adoption2.save
+    adoption.pet_id = 2
+    assert adoption.save
   end
 
   test "should not save adoption if a pet is adopted already" do
     adoption = Adoption.new
-    adoption.customer_id = 1
-    adoption.pet_id = 1
-    adoption.save
-
-    adoption2 = Adoption.new
-    adoption2.customer_id = 2
-    adoption2.pet_id = 1
-    assert_not adoption2.save
+    adoption.customer_id = 2
+    adoption.pet_id = 3
+    assert_not adoption.save
   end
 
 end

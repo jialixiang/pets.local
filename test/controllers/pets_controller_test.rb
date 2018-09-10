@@ -61,4 +61,10 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to pets_url
   end
+
+  test "should get matching customers" do
+    get "/pets/#{@pet.id}/matches.json"
+    assert_equal JSON.parse(response.body), [2, 3]
+  end
+
 end

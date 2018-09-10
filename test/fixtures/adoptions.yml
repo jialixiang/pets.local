@@ -1,9 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  customer: bob
-  pet: coco
-
-two:
-  customer: charlie
-  pet: daisy
+  customer_id: 3
+  pet_id: 3

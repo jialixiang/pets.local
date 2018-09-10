@@ -50,15 +50,19 @@
 
     <button v-on:click="save" class="btn-primary">Save</button>
 
-    <h3>Adopted Pets</h3>
-    <% customer.adoptions.each do |adoption| %>
-      <li><%= adoption.pet.id %></li>
-    <% end %>
+    <% if customer.id %>
+      <h3>Adopted Pets</h3>
+      <% if customer.adoptions %>
+        <% customer.adoptions.each do |adoption| %>
+          <li><%= adoption.pet.id %></li>
+        <% end %>
+      <% end %>
 
-    <br />
-    <label>Add New Adoption</label>
-    <input type="number" class="form-control" id="pet_id" v-model="pet_id_to_adopt" placeholder="Enter Pet ID (Integer)">
-    <br />
-    <button v-on:click="adopt" class="btn-primary">Adopt</button>
+      <br />
+      <label>Add New Adoption</label>
+      <input type="number" class="form-control" id="pet_id" v-model="pet_id_to_adopt" placeholder="Enter Pet ID (Integer)">
+      <br />
+      <button v-on:click="adopt" class="btn-primary">Adopt</button>
+    <% end %>
   </div>
 <% end %>

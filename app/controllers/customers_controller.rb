@@ -104,7 +104,7 @@ class CustomersController < ApplicationController
         format.html { redirect_to @customer, notice: 'Adoption was successfully created.' }
         format.json { render :show, status: :created, location: @customer }
       else
-        format.html { render :new }
+        format.html { redirect_to @customer, notice: 'Adoption failed. Pet is adopted already!' }
         format.json { render json: @adoption.errors, status: :unprocessable_entity }
       end
     end
