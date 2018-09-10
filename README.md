@@ -36,7 +36,9 @@ pets.local provides a soft real-time, location-based matching service for Custom
 
 ### Build the Project
 ```
-docker-compose run web rails new . --force --database=postgresql
+docker-compose run web rails new . --force --database=postgresql --webpack=vue --skip-coffee
+docker-compose run web yarn install
+docker-compose build
 docker-compose up
 ```
 
@@ -52,4 +54,5 @@ rails server
 ```
 
 ### TODOs
-tbc
+* Real-Time
+* Location
