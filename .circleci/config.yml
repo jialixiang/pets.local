@@ -7,7 +7,15 @@ jobs:
   build:
     docker:
        - image: circleci/ruby:2.5.1-node-browsers
+         environment:
+           PGHOST: 127.0.0.1
+           PGUSER: test
+           RAILS_ENV: test
        - image: circleci/postgres:10.5-alpine-postgis-ram
+         environment:
+           POSTGRES_USER: test
+           POSTGRES_DB: test
+           POSTGRES_PASSWORD: ""
 
     working_directory: ~/pets.local
 
