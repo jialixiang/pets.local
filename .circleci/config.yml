@@ -6,7 +6,6 @@ version: 2
 jobs:
   build:
     docker:
-       - image: circleci/node:8.11.2
        - image: circleci/ruby:2.5.1-node-browsers
        - image: circleci/postgres:10.5-alpine-postgis-ram
 

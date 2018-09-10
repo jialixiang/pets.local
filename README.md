@@ -2,7 +2,7 @@
 
 pets.local provides a soft real-time, location-based matching service for Customers who are looking to find a new Pet.
 
-### Project Dependency
+### Tech Stack
 * Ruby on Rails
 * PostgreSQL
 * Vue.js
@@ -34,15 +34,21 @@ pets.local provides a soft real-time, location-based matching service for Custom
 * POST /customers/{id}/adopt?pet_id={pet_id}
 <br />The Customer adopts the given Pet (The Pet and Customer should no longer appear in /matches queries)
 
-### Getting Started
+### Build the Project
 ```
 docker-compose run web rails new . --force --database=postgresql
 docker-compose up
 ```
 
-### Testing
+### Local Testing
 ```
+rake db:create
+rake db:migrate
+rake db:seed
+
 rake test
+
+rails server
 ```
 
 ### TODOs
