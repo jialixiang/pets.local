@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PetsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @pet = pets(:one)
+    @pet = pets(:oreo)
   end
 
   test "should get index" do
@@ -16,11 +16,18 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create pet" do
-    assert_difference('Pet.count') do
-      post pets_url, params: { pet: { age: @pet.age, available_from: @pet.available_from, breed: @pet.breed, id: @pet.id, name: @pet.name, species: @pet.species } }
+    assert_raises ActiveRecord::RecordNotUnique do
+      post pets_url, params: {
+        pet: {
+          id: @pet.id,
+          name: @pet.name,
+          available_from: @pet.available_from,
+          age: @pet.age,
+          species: @pet.species,
+          breed: @pet.breed
+        }
+      }
     end
-
-    assert_redirected_to pet_url(Pet.last)
   end
 
   test "should show pet" do
@@ -34,7 +41,16 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update pet" do
-    patch pet_url(@pet), params: { pet: { age: @pet.age, available_from: @pet.available_from, breed: @pet.breed, id: @pet.id, name: @pet.name, species: @pet.species } }
+    patch pet_url(@pet), params: {
+      pet: {
+        id: @pet.id,
+        name: @pet.name,
+        available_from: @pet.available_from,
+        age: @pet.age,
+        species: @pet.species,
+        breed: @pet.breed
+      }
+    }
     assert_redirected_to pet_url(@pet)
   end
 

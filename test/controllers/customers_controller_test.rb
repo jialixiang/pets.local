@@ -2,7 +2,8 @@ require 'test_helper'
 
 class CustomersControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @customer = customers(:one)
+    @customer = customers(:alice)
+    @preference = customer_preferences(:alice)
   end
 
   test "should get index" do
@@ -16,11 +17,19 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create customer" do
-    assert_difference('Customer.count') do
-      post customers_url, params: { customer: { id: @customer.id, preference_id: @customer.preference_id } }
+    assert_raises ActiveRecord::RecordNotUnique do
+      post customers_url, params: {
+        customer: {
+          id: @customer.id,
+          preference_attributes: {
+            id: nil,
+            age: @preference.age,
+            species: @preference.species,
+            breed: @preference.breed
+          }
+        }
+      }
     end
-
-    assert_redirected_to customer_url(Customer.last)
   end
 
   test "should show customer" do
@@ -34,7 +43,17 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update customer" do
-    patch customer_url(@customer), params: { customer: { id: @customer.id, preference_id: @customer.preference_id } }
+    patch customer_url(@customer), params: {
+      customer: {
+        id: @customer.id,
+        preference_attributes: {
+          id: @preference.id,
+          age: @preference.age,
+          species: @preference.species,
+          breed: @preference.breed
+        }
+      }
+    }
     assert_redirected_to customer_url(@customer)
   end
 

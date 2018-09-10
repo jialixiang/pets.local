@@ -1,11 +1,22 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  age: MyString
-  species: 
-  breed: 
+alice:
+  id: 1
+  age: 'less than 2 years'
+  species: ['dog']
+  breed: ['poodle']
+  customer_id: 1
 
-two:
-  age: MyString
-  species: 
-  breed: 
+bob:
+  id: 2
+  age:
+  species: ['cat', 'dog']
+  breed: []
+  customer_id: 2
+
+charlie:
+  id: 3
+  age:
+  species: []
+  breed: []
+  customer_id: 3

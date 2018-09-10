@@ -15,7 +15,7 @@ class CustomerPreferenceTest < ActiveSupport::TestCase
 
   test "should not save customer preference with invalid age range" do
     preference = CustomerPreference.new
-    assert_raises(ArgumentError) do
+    assert_raises ArgumentError do
       preference.age = 'fake'
     end
   end

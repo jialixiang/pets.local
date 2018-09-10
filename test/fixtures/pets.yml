@@ -1,17 +1,25 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+oreo:
   id: 1
-  name: MyString
-  available_from: 2018-09-05 23:12:42
+  name: oreo
+  available_from: 2018-08-30 12:00:00
   age: 1
-  species: MyString
-  breed: MyString
+  species: dog
+  breed: labrador
 
-two:
-  id: 1
-  name: MyString
-  available_from: 2018-09-05 23:12:42
-  age: 1
-  species: MyString
-  breed: MyString
+coco:
+  id: 2
+  name: coco
+  available_from: 2018-08-20 08:00:00
+  age:
+  species: cat
+  breed:
+
+daisy:
+  id: 3
+  name: daisy
+  available_from:
+  age: 5
+  species: rabbit
+  breed:

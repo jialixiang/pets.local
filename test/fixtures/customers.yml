@@ -1,9 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+alice:
   id: 1
-  preference: one
 
-two:
-  id: 1
-  preference: two
+bob:
+  id: 2
+
+charlie:
+  id: 3

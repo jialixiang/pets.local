@@ -27,14 +27,14 @@ class PetTest < ActiveSupport::TestCase
 
   test "should not save pet with an invalid species" do
     pet = Pet.new
-    assert_raises(ArgumentError) do
+    assert_raises ArgumentError do
       pet.species = 'fake'
     end
   end
 
   test "should not save pet with an invalid breed" do
     pet = Pet.new
-    assert_raises(ArgumentError) do
+    assert_raises ArgumentError do
       pet.breed = 'fake'
     end
   end
