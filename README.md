@@ -1,24 +1,49 @@
-# README
+# pets.local
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+pets.local provides a soft real-time, location-based matching service for Customers who are looking to find a new Pet.
 
-Things you may want to cover:
+### Project Dependency
+* Ruby on Rails
+* PostgreSQL
+* Vue.js
+* Docker
+* Circle CI
 
-* Ruby version
+### Entity Associations
+<img width="403" alt="entities" src="https://user-images.githubusercontent.com/4859095/45280836-81644c80-b508-11e8-92af-5c3be9d79bd4.png">
 
-* System dependencies
+### API
+* POST /pets
+<br />Add a new pet to the system, with all the properties described above
 
-* Configuration
+* GET /pets/{id}
+<br />Fetch the pet by ID
 
-* Database creation
+* GET /pets/{id}/matches
+<br />Get an array of "matching" customers for the given pet
 
-* Database initialization
+* POST /customers
+<br />Add a new customer to the system (Together with their preferences for pets)
 
-* How to run the test suite
+* GET /customers/{id}
+<br />Fetch the customer by ID
 
-* Services (job queues, cache servers, search engines, etc.)
+* GET /customers/{id}/matches
+<br />Get an array of "matching" Pets for the given customer
 
-* Deployment instructions
+* POST /customers/{id}/adopt?pet_id={pet_id}
+<br />The Customer adopts the given Pet (The Pet and Customer should no longer appear in /matches queries)
 
-* ...
+### Getting Started
+```
+docker-compose run web rails new . --force --database=postgresql
+docker-compose up
+```
+
+### Testing
+```
+rake test
+```
+
+### TODOs
+tbc
