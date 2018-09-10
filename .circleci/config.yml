@@ -6,6 +6,7 @@ version: 2
 jobs:
   build:
     docker:
+       - image: circleci/node:8.11.2
        - image: circleci/ruby:2.5.1-node-browsers
        - image: circleci/postgres:10.5-alpine-postgis-ram
 
@@ -20,16 +21,23 @@ jobs:
           - v1-dependencies-{{ checksum "Gemfile.lock" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
-
       - run:
           name: install dependencies
           command: |
             bundle install --jobs=4 --retry=3 --path vendor/bundle
-
       - save_cache:
           paths:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+      - restore_cache:
+          key: v1-yarn-{{ checksum "yarn.lock" }}
+      - run: yarn install
+      - save_cache:
+          key: v1-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
+      - run: yarn build
 
       # Database setup
       - run: bundle exec rake db:create
