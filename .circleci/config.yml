@@ -36,7 +36,8 @@ jobs:
           key: v1-yarn-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
-      - run: yarn build
+      - run: bundle exec rails webpacker:install:vue
+      - run: yarn add vue-turbolinks vue-resource
 
       # Database setup
       - run: bundle exec rake db:create
