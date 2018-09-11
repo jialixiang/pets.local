@@ -2,6 +2,8 @@ version: '3'
 services:
   db:
     image: postgres:10.5
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
   webpacker:
     build: .
     command: bundle exec bin/webpack-dev-server

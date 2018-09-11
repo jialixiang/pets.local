@@ -38,21 +38,13 @@ pets.local provides a soft real-time, location-based matching service for Custom
 ```
 docker-compose run web rails new . --force --database=postgresql --webpack=vue --skip-coffee
 docker-compose run web yarn install
-docker-compose build
+docker-compose run web rake db:create
+docker-compose run web rake db:migrate
+docker-compose run web rake db:seed
 docker-compose up
 ```
-
-### Local Testing
-```
-rake db:create
-rake db:migrate
-rake db:seed
-
-rake test
-
-rails server
-```
+Visiting http://localhost:3000
 
 ### TODOs
-* Real-Time
-* Location
+* Finish Real-Time Subscription
+* Pet Matching based on Location
