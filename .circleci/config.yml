@@ -50,11 +50,11 @@ jobs:
 
       - run:
           name: Set up Database
+          environment:
+            DATABASE_URL: postgresql://test@localhost:5432/pets_local_test
           command: |
             bundle exec rake db:create
             bundle exec rake db:schema:load
-        environment:
-           DATABASE_URL: postgresql://test@localhost:5432/pets_local_test
 
       # run tests!
       - run: bundle exec rails test
