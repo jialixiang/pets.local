@@ -49,12 +49,10 @@ jobs:
       - run: yarn add vue-turbolinks vue-resource
 
       - run:
-          name: Set up Database
+          name: Set up Database and Run Test
           environment:
             DATABASE_URL: postgresql://test@localhost:5432/pets_local_test
           command: |
             bundle exec rake db:create
             bundle exec rake db:schema:load
-
-      # run tests!
-      - run: bundle exec rails test
+            bundle exec rails test
